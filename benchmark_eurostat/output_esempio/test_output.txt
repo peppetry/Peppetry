@@ -1,0 +1,26 @@
+[OK ] D11: copertura = valore vero (errore massimo 6.75e-13, 72 celle paese-anno)
+[OK ] D21: copertura = valore vero (errore massimo 2.41e-14, 72 celle paese-anno)
+[OK ] D22: copertura = valore vero (errore massimo 6.23e-13, 72 celle paese-anno)
+[OK ] D23: copertura = valore vero (errore massimo 4.84e-11, 70 celle paese-anno)
+[OK ] D24: copertura = valore vero (errore massimo 4.89e-11, 70 celle paese-anno)
+[OK ] D31: copertura = valore vero (errore massimo 2.87e-09, 72 celle paese-anno)
+[OK ] CP_tot: copertura = valore vero (errore massimo 3.20e-12, 72 celle paese-anno)
+[OK ] CP_C: copertura = valore vero (errore massimo 1.02e-11, 72 celle paese-anno)
+[OK ] D11: sezioni A, K, O, P, Q, R, S escluse (default) sezioni usate: ['B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'L', 'M', 'N']
+[OK ] --unita euro e --unita migliaia danno lo stesso risultato (differenza massima 3.3e-16)
+[OK ] D25: quote Orbis = quote Eurostat (costruzione) (errore massimo 2.6e-11, 42 celle)
+
+Confronto quote Eurostat 2006 (manifattura, NACE Rev.1.1 D) con Tab. D.2.5 degli autori: 120 celle, differenza media 0.0037, massima 0.016
+   variabile paese classe_armonizzata  quota  quota_autori  diff
+ occupazione    PT               0-19  0.336          0.32 0.016
+gross_output    GB               0-19  0.093          0.08 0.013
+gross_output    SI               0-19  0.131          0.12 0.011
+ occupazione    PT             20-249  0.480          0.49 0.010
+gross_output    GB               250+  0.620          0.63 0.010
+gross_output    CZ               0-19  0.090          0.10 0.010
+gross_output    CZ               250+  0.600          0.59 0.010
+ occupazione    SI               0-19  0.189          0.18 0.009
+[OK ] D25: benchmark Eurostat 2006 = valori Eurostat degli autori (99% delle celle entro 0.015)
+
+Risultato: 12/12 controlli superati
+Output tabelle: /home/user/Peppetry/benchmark_eurostat/output_esempio (console in output_console.txt)
