@@ -11,6 +11,13 @@ Le pagine indicate come "appendice" sono quelle dell'appendice NBER 2022.
 
 Per ogni regola, la nota **"Nel tuo disco"** dice come si applica a una consegna Orbis Historical del 2025, che è già un unico file con tutta la storia. Gli autori invece univano più dischi annuali.
 
+**Controllo di completezza.** La lista è stata ricontrollata cercando nei testi integrali ogni punto in cui gli autori tolgono, tengono, sostituiscono o verificano qualcosa. Le regole trovate in questo secondo passaggio sono nella Fase 4.
+
+Restano fuori, di proposito:
+
+- le regole sui dati di proprietà, appendice B, perché non riguardano i bilanci;
+- i consigli su come scaricare dal software BvD, perché non servono con una consegna bulk. Sono riassunti al punto 55.
+
 ---
 
 ## Fase 1. Lettura del file e prima pulizia di ogni riga
@@ -104,8 +111,13 @@ Appendice C.2, D.2, D.4 e articolo pubblicato, appendici A e B.
     - l'articolo pubblicato, per lo studio sulla concentrazione, dà la preferenza al consolidato.
 
     Per il confronto con Eurostat vale l'appendice.
-26. **Stessa impresa, stesso anno, bilanci con valori uguali.** Tenere il tipo di bilancio che ha la serie storica più lunga. A parità di lunghezza, tenere il non consolidato.
-27. **Imprese che passano avanti e indietro tra consolidato e non consolidato.** Nell'articolo pubblicato le tolgono, per avere serie storiche coerenti.
+26. **Stessa impresa, stesso anno, bilanci con valori uguali.** Anche qui ci sono due versioni.
+    - **Appendice D.4:** tenere il tipo di bilancio che ha la serie storica più lunga. A parità di lunghezza, tenere il non consolidato.
+    - **Articolo pubblicato, appendice A:**
+      - se l'impresa presenta sempre il non consolidato, tenere il non consolidato;
+      - se presenta sempre il consolidato, tenere il consolidato;
+      - se alterna i due senza regolarità, tenere il consolidato e trattare tutta la serie come consolidata.
+27. **Imprese che passano avanti e indietro tra consolidato e non consolidato.** Nell'articolo pubblicato le tolgono, per avere serie storiche coerenti. Il motivo indicato è il cambio di norme contabili tra il 2005 e il 2007, quando molte imprese sono passate al consolidato secondo i principi internazionali: tenerle creerebbe salti artificiali nelle vendite.
 28. **Quanti doppioni aspettarsi.** Gli autori ne trovano 607.839, lo 0,24% delle righe:
     - nel 62,5% dei casi la coppia è un LF con un U;
     - in circa un terzo dei casi è un C1 con un U1.
@@ -149,3 +161,67 @@ Appendice C.2, D.2, D.4 e articolo pubblicato, appendici A e B.
     | Spagna | 82% | |
 
     I tuoi numeri non devono coincidere al decimale, perché gli autori non usavano Orbis Historical. Devono avere lo stesso ordine di grandezza e lo stesso andamento.
+
+---
+
+## Fase 4. Regole trovate nel secondo controllo
+
+Nella prima versione della lista non c'erano. Sono in ordine di importanza per il tuo lavoro.
+
+### Tipo di bilancio e doppioni
+
+42. **Cosa sono davvero i bilanci LF.** Sono bilanci con dati limitati: tutte le variabili sono vuote tranne vendite e totale attivo (articolo pubblicato, appendice A). Gli autori non li buttano a priori: ricavano se sono consolidati o no dall'ultima lettera del numero di conto BvD.
+    - Nei loro dati, il 62,5% dei doppioni è proprio una coppia LF più un bilancio U.
+    - **Nel tuo disco:** per i conti di copertura scartarli va bene, perché non hanno né fatturato operativo né dipendenti.
+43. **Codice di consolidamento mancante.** Si ricava dall'ultima lettera del numero di conto BvD: C per consolidato, U per non consolidato. Se manca il numero di conto, lo si costruisce unendo il BvD ID e la prima lettera del codice di consolidamento (appendice A.5.1, passo 5).
+44. **Doppioni con codici di settore diversi.** Alcuni doppioni impresa-anno hanno gli stessi dati di bilancio ma codici di settore diversi. In Orbis la prima riga è il settore principale: gli autori tengono quella (appendice, nota 13).
+45. **Doppioni che non si sanno risolvere.** Dopo le regole del punto 8 restano pochi casi in cui non si capisce se il bilancio è annuale o mensile. Gli autori li tolgono.
+46. **Lo stesso bilancio depositato due volte.** Alcune imprese depositano lo stesso bilancio sia come "Annual report" sia come "Local registry filing". Le stesse voci possono avere valori diversi, perché le regole di deposito sono diverse. Il bilancio annuale ha in più il dettaglio delle voci (guida 2017, pagina 10).
+    - Gli autori non danno una regola di scelta.
+    - **Nel tuo disco:** preferire "Annual report" è una scelta nostra coerente con questo.
+
+### Unità e identificativi
+
+47. **Eccezione al controllo delle unità.** Nel controllo del punto 9 si possono tenere le imprese che Moody's indica come inattive: il loro attivo può davvero scendere quasi a zero da un anno all'altro, senza che sia un errore di unità (appendice A.5.2).
+48. **Paese reale dell'impresa.** Le prime due lettere del BvD ID non sono sempre il paese dell'impresa. La guida corregge con una tabella di discrepanze prima di dividere i dati per paese (guida 2017, pagina 10).
+    - **Nel tuo disco:** usare `Country ISO code` di `Contact_info` o `All_addresses`.
+49. **Ex Jugoslavia.** I codici delle imprese passano da YU a CS e poi a RS o ME: gli autori li riassegnano a Serbia o Montenegro usando la parte numerica del codice. Non riguarda i paesi che ti interessano.
+50. **Valute dei nuovi paesi dell'euro.** Slovenia, Estonia, Slovacchia e Malta:
+    - prima dell'adozione dell'euro i dati vanno riportati nella vecchia valuta nazionale, perché il deflatore della Banca Mondiale è in quella valuta;
+    - i tassi di cambio vengono da Compustat Global, integrati con quelli delle banche centrali.
+
+    Non riguarda Italia, Germania, Francia, Spagna e Portogallo.
+
+### File anagrafici
+
+51. **File con più righe per impresa.** Sono `All addresses`, `Industry classifications` e `Identifiers`.
+    - **Indirizzi:** tenere l'indirizzo di costituzione. Se manca, togliere gli indirizzi precedenti. Tra quelli rimasti, tenere l'indirizzo dell'ufficio.
+    - **Settore:** tenere solo il codice "core", cioè 4 cifre per NACE e NAICS.
+    - **Identificativi:** sistemare caso per caso, perché ogni paese ha identificativi principali diversi.
+
+    Se non si fa, il collegamento con i bilanci moltiplica le righe (guida 2017, pagine 2-3).
+52. **Valori speciali nei codici di settore.** Nei codici americani SIC, "NULL", "NUL" e "JHB" vanno trattati come valori mancanti (guida 2017, pagina 6).
+53. **Due copie degli stessi file di bilancio.** Nella consegna descritta dalla guida, i file `Industry - Global financials and ratios` compaiono in due cartelle. Quella con "Histo" nel nome ha più anni di bilancio; l'altra ha solo gli anni recenti.
+    - **Nel tuo disco:** verificare da quale cartella vengono i file usati.
+    - Nella stessa consegna, `Key financials` mette insieme imprese industriali, banche e assicurazioni, con poche variabili.
+
+### Confronti e download
+
+54. **Come gli autori hanno costruito la Table A.2.2**, quella che hai replicato all'inizio (appendice 2024, pagina 11):
+    - imprese con totale attivo compilato in quell'anno;
+    - tolti i doppioni dovuti a più bilanci nello stesso anno, ad esempio primo trimestre e fine anno;
+    - tenuti due bilanci nello stesso anno per le imprese che hanno sia il consolidato sia il non consolidato.
+55. **Consigli di download**, che non servono con una consegna bulk ma spiegano le differenze con i dati degli autori:
+    - scaricare per "anni relativi", cioè gli ultimi 5 anni disponibili per ogni impresa, invece che per anni di calendario;
+    - ricostruire l'anno dalla data di chiusura, perché BvD non tiene conto dei buchi nella serie;
+    - forzare un'unità fissa, ad esempio migliaia, invece di quella originale;
+    - non usare la variabile "Exchange rate" di BvD, che cambia significato tra prodotti;
+    - scegliere solo imprese industriali, nel formato globale.
+56. **Regole valide solo per lo studio sulla concentrazione.** Gli autori tolgono:
+    - elettricità, gas e acqua, NACE da 35 a 39;
+    - finanza e assicurazioni, da 64 a 66;
+    - attività immobiliari, 68;
+    - pubblica amministrazione, 84;
+    - organismi extraterritoriali, 99.
+
+    Per i confronti di copertura non si applicano.
